@@ -1,0 +1,20 @@
+.section-container {
+    background-color: #f8f9fa; 
+    padding: 20px; 
+    border-radius: 5px; 
+  }
+  
+  .student-list-section {
+    background-color: #f8f9fa; 
+    padding: 20px;
+    border-radius: 5px;
+  }
+  .mb-4 {
+    margin-bottom: 1.5rem;
+  }
+
+  .modal,
+.modal-backdrop,
+.modal-dialog {
+  pointer-events: auto;
+}

@@ -1,0 +1,135 @@
+:root {
+  /* Backgrounds */
+  --background-color: #f5f5f5;       /* Main page background */
+  --course-card-bg: #ffffff;         /* Course card background */
+  --module-card-bg: #f8f9fa;         /* Module card background */
+
+  /* Text */
+  --text-color-primary: #212121;     
+  --text-color-secondary: #555555;   
+
+  /* Accent / Interactive */
+  --accent-color: #007bff;           
+  --hover-shadow: rgba(0, 0, 0, 0.15);
+}
+
+/* ---------- Home Section ---------- */
+.home-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  overflow-y: auto; /* page scroll */
+}
+
+.home-section::-webkit-scrollbar {
+  width: 0px; 
+  background: transparent;
+}
+
+/* ---------- Course Grid ---------- */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* up to 3 columns */
+  gap: 2rem;
+  width: 100%;
+  max-width: 1400px;
+  justify-items: center;
+}
+
+/* ---------- Course Card ---------- */
+.course-card {
+  background-color: var(--course-card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 10px var(--hover-shadow);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 300px; /* ensures minimum card height */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px var(--hover-shadow);
+}
+
+/* Course Title */
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Module Grid ---------- */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  
+  width: 100%;
+  box-sizing: border-box; /* include padding in width */
+  padding: 0; /* remove extra horizontal padding */
+  
+  max-height: 300px;
+  overflow-y: auto; /* vertical scroll only */
+  overflow-x: hidden; /* remove horizontal scroll */
+  justify-content: center; /* center modules */
+}
+
+
+
+/* Remove inner scroll on smaller screens */
+@media (max-width: 768px) {
+  .module-grid {
+    max-height: none;
+    overflow-y: visible;
+  }
+}
+
+/* Responsive columns for mobile */
+@media (max-width: 480px) {
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Module Card ---------- */
+.module-card {
+  background-color: var(--module-card-bg);
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 120px;
+  max-width: auto; /* match min-width of grid */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 0 auto; /* center inside each grid cell */
+}
+
+
+
+/* Module Title */
+.module-card .module-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color-primary);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* Module Description */
+.module-card .module-desc {
+  font-size: 14px;
+  color: var(--text-color-secondary);
+  text-align: center;
+}
+
+

@@ -1,0 +1,110 @@
+
+.contain {
+  margin: auto;
+  display: flex;
+  padding: 70px;
+  flex-direction: row;
+  background-color: #1e3e62;
+  height: calc(100vh - 63px); /* Adjust height based on header */
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e3e62;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column; /* Keep sidebar content in a column */
+  background-color: #f9f9f9;
+  height: 220px;
+  margin-right: 20px;
+  border-right: 1px solid #ccc;
+  width: 250px; /* Set a width for the sidebar */
+  padding: 10px; /* Add some padding for better spacing */
+}
+
+.search-input {
+  display: block;
+  padding: 10px 20px;
+  
+  margin: 1rem; /* Use rem for consistent spacing */
+}
+
+.filter {
+  margin: 1rem; /* Use rem for consistent spacing */
+}
+
+.filter label {
+  margin-right: 10px;
+}
+
+.main-content {
+  flex: 1; /* Allow main content to take up remaining space */
+  overflow: auto; /* Add scrolling if content is too long */
+}
+
+.user-list-header {
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  color: white;
+}
+
+.user-list {
+  background-color: #f9f0ff;
+  margin-top: 20px; /* Add spacing above user list */
+  margin-right: 20px;
+}
+
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.btn.create {
+  flex: 1;
+}
+
+.create-user-button {
+  background-color: black;
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 64px;
+  margin-right: 10px;
+}
+
+.create-user-button:hover {
+  background-color: #444; /* Darker shade on hover */
+}
+
+@media (max-width: 768px) {
+  .contain {
+    flex-direction: column; /* Stack sidebar and main content */
+  }
+
+  .sidebar {
+    margin-top: 0; /* Remove margin for smaller screens */
+    border-right: none; /* Remove right border on small screens */
+    border-bottom: 1px solid #ccc; /* Add bottom border instead */
+  }
+
+  .main-content {
+    padding: 10px; /* Less padding for smaller screens */
+  }
+}
+.users-label{
+  color: rgb(253, 253, 253);
+}
