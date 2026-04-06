@@ -14,7 +14,7 @@ export function ModalPopupCreateUser({ show, setShow }: ModalPopupProps): ReactE
 
   const handleCloseModal = () => {
     setShow(false);
-    window.location.reload();
+    window.location.reload(); //change this later
   };
 
   return (

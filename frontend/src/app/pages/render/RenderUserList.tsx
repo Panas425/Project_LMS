@@ -56,7 +56,8 @@ export function RenderUserListPage({
 
   const filteredUsers =
     users?.filter((user) => {
-      const matchesSearch = (user.userName ?? "").toLowerCase().includes(searchQuery.toLowerCase());
+      const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
+      const matchesSearch = fullName.includes(searchQuery.toLowerCase());
       const matchesCourse = selectedCourse
         ? user.courseIDs?.includes(selectedCourse) ?? false
         : true;
@@ -74,7 +75,7 @@ export function RenderUserListPage({
 
             <input
               type="text"
-              placeholder="Search by username"
+              placeholder="Search by name"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="form-control mb-3"
@@ -142,7 +143,7 @@ export function RenderUserListPage({
                     <div className="card shadow-sm h-100">
                       <div className="card-body d-flex flex-column justify-content-between">
                         <div>
-                          <h6 className="card-title">{user.userName}</h6>
+                          <h6 className="card-title">{user.firstName + " " + user.lastName}</h6>
                           <p className="card-text mb-1">
                             <span className="badge bg-secondary me-1">{user.role}</span>
                             {userCourses.length > 0 ? (

@@ -20,8 +20,8 @@ export function AddUserForm(): ReactElement {
       return;
     }
 
-    if (role.toLowerCase() === "student" && selectedCourses.length === 0) {
-      setError("Students must be assigned at least one course.");
+    if ((role.toLowerCase() === "student" || role.toLowerCase() === "teacher") && selectedCourses.length === 0) {
+      setError("User must be assigned at least one course.");
       return;
     }
 
@@ -91,10 +91,11 @@ export function AddUserForm(): ReactElement {
           <option value="">Select Role</option>
           <option value="Teacher">Teacher</option>
           <option value="Student">Student</option>
+          <option value="Admin">Admin</option>
         </select>
       </div>
 
-      {role.toLowerCase() === "student" && courses && (
+      {(role.toLowerCase() === "student" || role.toLowerCase() === "teacher") && courses && (
         <div className="mb-3">
           <label className="form-label">Assign Courses</label>
           <select

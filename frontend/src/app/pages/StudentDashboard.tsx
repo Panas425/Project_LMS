@@ -63,7 +63,7 @@ export default function StudentDashboard() {
             {/* PAGE HEADER */}
             <div className="mb-4">
                 <h1 className="fw-bold">Student Dashboard</h1>
-                <p className="text-gray-500 dark:text-gray-300">Welcome back! Here’s an overview of your learning activity.</p>
+                <p className="text-gray-500 dark:text-gray-300">Welcome back!</p>
             </div>
 
             <div className="row g-4">

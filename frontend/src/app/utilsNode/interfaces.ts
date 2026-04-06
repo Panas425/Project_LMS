@@ -81,6 +81,8 @@ export interface IUser {
   role: string;
   email: string;
   courseIDs: string[];
+
+  
 }
 
 export interface IRegisterUser {
@@ -114,7 +116,6 @@ export interface IUserLoggedIn {
   _id: string;
   name: string;
   role: string;
-  lastLogin: Date;
 }
 
 export interface IActivity {
