@@ -1,20 +1,19 @@
-require("dotenv").config({ path: ".env.test" });
-const mongoose = require("mongoose");
-const { connectDB } = require("../db/mongo"); // <-- Your file
+﻿const mongoose = require('mongoose');
+require('dotenv').config();
 
-beforeAll(async () => {
-  await connectDB();  // uses MONGO_URL from .env.test
-});
-
-afterEach(async () => {
-  // Clean test DB between tests
-  const collections = await mongoose.connection.db.collections();
-  for (const collection of collections) {
-    await collection.deleteMany({});
+const connectDB = async () => {
+  try {
+    const mongoURI = process.env.MONGO_URL || 'mongodb://localhost:27017/LMS-Project';
+    
+    await mongoose.connect(mongoURI);
+    console.log('✅ MongoDB Connected Successfully');
+    console.log('📡 Database:', mongoURI);
+    
+    return mongoose.connection;
+  } catch (error) {
+    console.error('❌ MongoDB Connection Failed:', error.message);
+    process.exit(1);
   }
-});
+};
 
-afterAll(async () => {
-  await mongoose.connection.dropDatabase(); // optional but clean
-  await mongoose.connection.close();
-});
+module.exports = connectDB;

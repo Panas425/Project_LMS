@@ -1,6 +1,6 @@
 require("dotenv").config();
 const app = require("./app");
-const { connectDB } = require("./db/mongo");
+const connectDB = require("./db/mongo");
 const seedAdmin = require("./seeds/seedAdmin");
 
 async function startServer() {

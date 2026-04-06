@@ -1,7 +1,6 @@
 "use-client";
 import { jwtDecode } from "jwt-decode";
 import { ITokenObjectExtensions } from "."; // assuming this interface defines token claims
-import { useAuthStore } from "@/stores/useAuthStore";
 
 // Adds the Authorization header to a fetch request
 export function addTokenToRequestInit(

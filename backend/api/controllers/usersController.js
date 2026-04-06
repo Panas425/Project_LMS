@@ -61,7 +61,6 @@ exports.createUser = async (req, res) => {
 
     // Create user document
     const user = new User({
-      _id: crypto.randomUUID(),
       firstName,
       lastName,
       username,
