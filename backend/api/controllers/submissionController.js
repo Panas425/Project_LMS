@@ -44,9 +44,9 @@ exports.addSubmission = async (req, res) => {
 
     await course.save();
 
-    res.json({ 
-      message: "Submission added successfully", 
-      submission: newSub.toObject() 
+    res.json({
+      message: "Submission added successfully",
+      submission: newSub.toObject()
     });
   } catch (err) {
     console.error("addSubmission error:", err);
@@ -182,5 +182,49 @@ exports.updateSubmissionGrade = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error updating submission grade" });
+  }
+};
+// Get all submissions for courses taught by a teacher
+exports.getTeacherSubmissions = async (req, res) => {
+  try {
+    const teacherId = req.user.id; // or req.user._id depending on your auth
+
+    // Find all courses where this user is a teacher
+    const courses = await Course.find({ 'teachers': teacherId });
+
+    let allSubmissions = [];
+
+    // Collect all submissions from all activities in all courses
+    courses.forEach(course => {
+      course.modules?.forEach(module => {
+        module.activities?.forEach(activity => {
+          if (activity.submissions && activity.submissions.length > 0) {
+            const submissionsWithDetails = activity.submissions.map(sub => {
+              const subObj = sub.toObject ? sub.toObject() : { ...sub };
+              return {
+                ...subObj,
+                activityName: activity.name,
+                courseName: course.name,
+                moduleName: module.name,
+                courseId: course._id,
+                moduleId: module._id,
+                activityId: activity._id
+              };
+            });
+            allSubmissions.push(...submissionsWithDetails);
+          }
+        });
+      });
+    });
+
+    // Sort by date (newest first)
+    allSubmissions.sort((a, b) =>
+      new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()
+    );
+
+    res.json(allSubmissions);
+  } catch (error) {
+    console.error("Error fetching teacher submissions:", error);
+    res.status(500).json({ message: "Error fetching submissions", error: error.message });
   }
 };

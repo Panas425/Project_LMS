@@ -64,6 +64,7 @@ type Action = {
     createCourse: (details: { name: string; description: string; startDate: string }) => Promise<void>;
     getCourseById: () => Promise<void>;
     getCourseByIdFromRouter: (courseId: string) => Promise<ICourses>;
+    getSubmissions: (courseId: string, moduleId: string, activityId: string) => Promise<void>;
     fetchCoursesForUser: (userId: string) => Promise<void>;
     createUser: (userDetails: { firstName: string; lastName: string; email: string; role: string; courseIDs?: string[] }) => Promise<IRegisterUser>;
     createModule: (moduleDetails: { name: string; description: string; start: string; end: string; courseId: string }) => Promise<IModules>;
@@ -81,6 +82,7 @@ type Action = {
     fetchModuleVideos: (moduleId: string) => Promise<IDocument[]>;
     fetchSubmissionsByActivity: (courseId: string, moduleId: string, activityId: string) => Promise<any[]>;
     fetchMySubmissionForActivity: (studentId: string) => Promise<ISubmission[]>;
+    fetchTeacherSubmissions: () => Promise<ISubmission>;
     deleteSubmission: (submissionId: string) => Promise<void>;
     handleDeleteUser: (userId: string) => Promise<void>;
     deleteCourse: (courseId: string) => Promise<void>;
@@ -330,6 +332,24 @@ export const useApiDataStore = create<State & Action>()(
                 return res.json();
             },
 
+            getSubmissions: async (courseId: string, moduleId: string, activityId: string) => {
+                const tokens = useAuthStore.getState().tokens;
+
+                const res = await fetch(
+                    `${BASE_URL}/courses/${courseId}/modules/${moduleId}/activities/${activityId}/submissions`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${tokens?.accessToken}`,
+                            "Content-Type": "application/json"
+                        },
+                    }
+                );
+
+                if (!res.ok) throw new Error("Failed to fetch submissions");
+                return res.json();
+            },
+
             uploadSubmission: async (details) => {
                 const tokens = useAuthStore.getState().tokens;
 
@@ -338,6 +358,7 @@ export const useApiDataStore = create<State & Action>()(
                 formData.append("studentId", details.studentId);
                 formData.append("fileName", details.file.name);
                 formData.append("studentName", details.studentName)
+                formData.append("userId", details.studentId);
 
 
                 console.log(details.studentName)
@@ -407,6 +428,11 @@ export const useApiDataStore = create<State & Action>()(
 
             fetchMySubmissionForActivity: async (studentId) => {
                 return await get().fetchWithToken(`${BASE_URL}/submissions/student/${studentId}`);
+            },
+
+            fetchTeacherSubmissions: async () => {
+                const data = await get().fetchWithToken(`${BASE_URL}/submissions/teacher/submissions`);
+                return data || []; // Ensure it always returns an array
             },
 
             deleteSubmission: async (submissionId) => {
